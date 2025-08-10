@@ -7,8 +7,7 @@ RUN apk add --no-cache python3 py3-pip git curl bash ca-certificates ffmpeg
 RUN python3 -m venv /venv \
  && . /venv/bin/activate \
  && pip install --no-cache-dir --upgrade pip wheel setuptools \
- && pip install --no-cache-dir fastapi uvicorn httpx numpy soundfile TTS
-
+ && pip install --no-cache-dir fastapi uvicorn httpx numpy
 ENV PATH="/venv/bin:$PATH"
 
 # Install Ollama
@@ -16,8 +15,8 @@ RUN curl -fsSL https://ollama.com/download/linux | sh || true
 ENV OLLAMA_HOST=0.0.0.0:11434
 
 WORKDIR /opt/megan
-# Placeholder server (we'll copy a ready example you can drop into /config)
-RUN printf '%s\n' '# Placeholder; copy megan_ai_single_file.py into /config to override' > /opt/megan/megan_ai_single_file.py
+# Placeholder server (you can override by dropping megan_ai_single_file.py in /config)
+RUN printf '%s\n' '# Placeholder Megan server' > /opt/megan/megan_ai_single_file.py
 
 COPY rootfs /
 
