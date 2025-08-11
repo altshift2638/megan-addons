@@ -1,7 +1,7 @@
 name: Megan AI (Local)
 slug: megan_ai
 description: Local Megan AI for Home Assistant with Ollama (llama3.2:3b) + voice + web UI
-version: 1.0.1
+version: 1.0.2
 arch: [amd64]
 startup: services
 init: false
