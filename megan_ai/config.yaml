@@ -1,16 +1,15 @@
 name: Megan AI (ChatGPT)
-version: "1.0.0"
+version: 1.0.1
 slug: megan_ai
-description: Casual AI home assistant powered by ChatGPT API
+description: Megan AI assistant powered by ChatGPT
 arch:
   - amd64
 startup: services
 boot: auto
+webui: http://[HOST]:[PORT:8000]
 ports:
   8000/tcp: 8000
-options:
-  OPENAI_API_KEY: ""
-  OPENAI_MODEL: "gpt-4o-mini"
-schema:
-  OPENAI_API_KEY: str
-  OPENAI_MODEL: str
+map:
+  - config:rw
+options: {}
+schema: {}
