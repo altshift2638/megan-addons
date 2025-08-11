@@ -1,7 +1,7 @@
 name: Megan AI (ChatGPT)
 slug: megan_ai
 description: A Megan-inspired AI assistant for Home Assistant (ChatGPT backend)
-version: "1.3.0"
+version: "1.3.2"
 arch: [amd64, aarch64]
 startup: services
 boot: auto
