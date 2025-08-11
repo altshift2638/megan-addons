@@ -9,7 +9,7 @@ WORKDIR /app
 
 # Copy app files
 COPY run.sh /run.sh
-COPY megan.py /app/megan.py
+COPY megan.py /app/megan_ai.py
 
 # Make run script executable
 RUN chmod a+x /run.sh
