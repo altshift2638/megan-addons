@@ -1,0 +1,16 @@
+#!/usr/bin/with-contenv bashio
+set -euo pipefail
+
+# Read options from /data/options.json via bashio and export for server.py
+export OPENAI_API_KEY="$(bashio::config 'OPENAI_API_KEY')"
+export OPENAI_MODEL="$(bashio::config 'OPENAI_MODEL')"
+export PERSONA_NAME="$(bashio::config 'PERSONA_NAME')"
+export PERSONA_PROMPT="$(bashio::config 'PERSONA_PROMPT')"
+
+if [ -z "${OPENAI_API_KEY}" ]; then
+  bashio::log.fatal "OPENAI_API_KEY is empty. Set it in the add-on options."
+  exit 1
+fi
+
+bashio::log.info "Starting ${PERSONA_NAME} (model=${OPENAI_MODEL})..."
+exec uvicorn server:app --host 0.0.0.0 --port 8000
