@@ -1,3 +1,5 @@
-#!/usr/bin/env bash
-echo "[Megan] Starting ChatGPT server..."
-exec uvicorn megan_ai:app --host 0.0.0.0 --port 8000
+#!/bin/bash
+echo "[Megan] Starting ChatGPT Megan AI..."
+
+# Start FastAPI server
+exec uvicorn megan:app --host 0.0.0.0 --port 8000
