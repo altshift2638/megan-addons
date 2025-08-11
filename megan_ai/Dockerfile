@@ -19,6 +19,9 @@ WORKDIR /opt/megan
 RUN printf '%s\n' '# Placeholder Megan server' > /opt/megan/megan_ai_single_file.py
 
 COPY rootfs /
+# ensure executable + unix line endings
+RUN chmod +x /run.sh && sed -i 's/\r$//' /run.sh
+
 
 EXPOSE 8000 11434
 CMD ["/run.sh"]
