@@ -1,0 +1,24 @@
+#!/bin/sh
+set -e
+
+if [ -f /usr/lib/bashio/bashio.sh ]; then
+  . /usr/lib/bashio/bashio.sh
+  OPENAI_API_KEY="$(bashio::config 'OPENAI_API_KEY')"
+  OPENAI_MODEL="$(bashio::config 'OPENAI_MODEL')"
+  PERSONA_NAME="$(bashio::config 'PERSONA_NAME')"
+  PERSONA_PROMPT="$(bashio::config 'PERSONA_PROMPT')"
+else
+  OPENAI_API_KEY="$(jq -r '.OPENAI_API_KEY // empty' /data/options.json 2>/dev/null || true)"
+  OPENAI_MODEL="$(jq -r '.OPENAI_MODEL // "gpt-4o-mini"' /data/options.json 2>/dev/null || echo gpt-4o-mini)"
+  PERSONA_NAME="$(jq -r '.PERSONA_NAME // "Megan"' /data/options.json 2>/dev/null || echo Megan)"
+  PERSONA_PROMPT="$(jq -r '.PERSONA_PROMPT // "You are a warm, witty, protective home companion."' /data/options.json 2>/dev/null || echo 'You are a warm, witty, protective home companion.')"
+fi
+
+if [ -z "$OPENAI_API_KEY" ]; then
+  echo "[Megan] FATAL: OPENAI_API_KEY is empty. Set it in the add-on options." >&2
+  exit 1
+fi
+
+export OPENAI_API_KEY OPENAI_MODEL PERSONA_NAME PERSONA_PROMPT
+echo "[Megan] Starting ${PERSONA_NAME} (model=${OPENAI_MODEL})..."
+exec uvicorn server:app --host 0.0.0.0 --port 8000
